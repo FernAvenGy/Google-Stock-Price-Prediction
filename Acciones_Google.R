@@ -1,50 +1,27 @@
-# Valor de la acción de Google  -------------------------------------------
+# -------------------------------------------------------------------------------------- 
+# Google Stock Price Prediction -- Time Series Analysis
+# Requisites: tidyverse, readr, lubridate, zoo, tseries, forecast, ggplot2, lmtest
 
-## Librerías necesarias para series de tiempo ------------------------------
-install.packages("xts")
-install.packages("astsa")
-install.packages("forecast")
-install.packages("foreign")
-install.packages("timsac")
-install.packages("vars")
-install.packages("mFiltyr")
-install.packages("dynlm")
-install.packages("nlme")
-install.packages("zoo")
-install.packages("quantmod")
-install.packages("lmtest")
-install.packages("lubridate")
-tsdiag(modelo_arima1)
-
-library(xts)
+## Libraries ------------------------------
 library(tidyverse)
+library(readr)
 library(lubridate)
-library(tseries)
-library(astsa)
-library(forecast)
-library(foreign)
-library(timsac)
-library(vars)
-library(mFiltyr)
-library(dynlm)
-library(nlme)
 library(zoo)
+library(tseries)
+library(forecast)
 library(ggplot2)
 library(lmtest)
 
 
 
-## Importación y gráficación de datos  ---------------------------------------------------
-# Importar datos de csv
+## Import and plot data  ---------------------------------------------------
+# Import data from csv
 
-library(readr)
-#/GOOGL_NUM.csv
 googl_data <- read_csv("Documents/CD/4_FOURTH/Estadística/Ads_YouTube/datasets/GOOGL_NUM.csv", 
                        +col_types = cols(Date = col_date(format = "%Y-%m-%d")))
 attach(googl_data)
 
-
-# Gráficar los datos
+# Plot data
 googldata_plot <- ggplot(googl_data, aes(x = Date, y = Close)) +
   geom_line(color = "skyblue", size = 1) +
   labs(title = "Evolución del Precio Ajustado de Google",
@@ -54,7 +31,7 @@ googldata_plot <- ggplot(googl_data, aes(x = Date, y = Close)) +
 googldata_plot
 
 
-## Conversión de data frame a time series ---------------------------------
+## Conversion to time objects (data frame -> time series) ---------------------------------
 
 #Hacer los datos una vabirable zoo dado que es inconsistente
 data_ts <- zoo(data$Close, order.by = as.Date(data$Date))
